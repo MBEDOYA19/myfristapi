@@ -10,8 +10,8 @@ import lombok.Setter;
 public class Seller {
     private String name;
     private String lastname;
-    private String age;
-    private String gender;
+    private byte age;
+    private char gender;
     private String identification;
-    private String location;
+    private Location city;
 }

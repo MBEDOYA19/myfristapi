@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LocationController {
     @GetMapping
     public String getlocation(){
-        return "manizales";
+        return "Manizales";
     }
 
 
