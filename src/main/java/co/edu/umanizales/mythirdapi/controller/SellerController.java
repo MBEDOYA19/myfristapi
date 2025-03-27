@@ -12,7 +12,7 @@ import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
 public class SellerController {
 
     @GetMapping
-    public String getSeller(){
+    public Seller getSeller(){
         Location Manizales = new Location("17001", "Manizales");
 
         Seller Mateo = new Seller("Mateo","Bedoya",(byte)18,'M',"1054862501", Manizales);
@@ -20,6 +20,7 @@ public class SellerController {
         Seller Miguel = new Seller("Miguel","Ocampo",(byte)19,'M',"24828506",Manizales);
         Seller Nicolas = new Seller("Nicolas","Ordoñez",(byte)18,'M',"75091129",Manizales);
         Seller Sofia = new Seller("Sofia","Calvo",(byte)17,'F',"24821306",Manizales);
-        return "vendedor";
+        return Mateo;
+
     }
 }
