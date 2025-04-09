@@ -31,12 +31,11 @@ public class LocationController {
     @GetMapping("")
     public List<Location> getLocations() {
         try {
-            String csvFilePath = "C:/Users/USER/IdeaProjects/mythirdapi/src/main/java/co/edu/umanizales/mythirdapi/DIVIPOLA-_C_digos_municipios_20250326.csv";
+            String csvFilePath = "C:/Users/USUARIO/IdeaProjects/mythirdapi/src/main/java/co/edu/umanizales/mythirdapi/DIVIPOLA-_C_digos_municipios_20250326.csv";
             return locationService.getLocationsFromCSV(csvFilePath);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public class LocationService {
 
     // Método para leer el archivo CSV y convertirlo en una lista de Location
-    public List<Location> loadLocationsFromCSV(String filePath) throws IOException, CsvValidationException {
+    public List<Location> getLocationsFromCSV(String filePath) throws IOException {
         List<Location> locations = new ArrayList<>();
 
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
@@ -37,8 +37,6 @@ public class LocationService {
 
         return locations;
     }
-
-
 
 }
 
