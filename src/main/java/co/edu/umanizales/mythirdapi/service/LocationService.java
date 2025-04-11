@@ -3,40 +3,72 @@ package co.edu.umanizales.mythirdapi.service;
 import co.edu.umanizales.mythirdapi.model.Location;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Getter
 public class LocationService {
 
-    // Método para leer el archivo CSV y convertirlo en una lista de Location
-    public List<Location> getLocationsFromCSV(String filePath) throws IOException {
-        List<Location> locations = new ArrayList<>();
+    private List<Location> locations;
 
-        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
-            String[] nextline;
+    @Value( "${locations_filename}" )
+    private String locationsFilename;
 
+    @PostConstruct
+    public void readLocationsFromCSV() throws IOException, URISyntaxException {
+        locations = new ArrayList<>();
+        locations.add(new Location("05","ANTIOQUIA"));
+        locations.add(new Location("17","CALDAS"));
+        locations.add(new Location("66","RISARALDA"));
 
-            while ((nextline = reader.readNext()) != null) {
-                String code = nextline[0];
+        Path pathFile = Paths.get(ClassLoader.getSystemResource(locationsFilename).toURI());
 
-                String description = nextline[1];
-                Location location = new Location(code, description);
-                locations.add(new Location(code, description));
+        try (CSVReader csvReader = new CSVReader(new FileReader(pathFile.toString()))) {
+            String[] line;
+            csvReader.skip(1);
+            // Leer todas las filas del CSV
+            while ((line = csvReader.readNext()) != null) {
 
+                // Crear un nuevo objeto Location y agregarlo a la lista
+                locations.add(new Location(line[2],line[3]));
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        }catch (CsvValidationException e){
+            throw e;  // Lanza la excepción para que pueda manejarse en la capa superior si es necesario
+        } catch (CsvValidationException e) {
             throw new RuntimeException(e);
         }
+    }
 
-        return locations;
+    public Location getLocationByCode(String code) {
+        for (Location location : locations) {
+            if (location.getCode().equals(code)) {
+                return location;
+            }
+        }
+        return null;
+    }
+
+    public List<Location> getStates() {
+        List<Location> states = new ArrayList<>();
+        for (Location location : locations) {
+            if(location.getCode().length() ==2){
+                states.add(location);
+            }
+        }
+        return states;
     }
 
 }
-
