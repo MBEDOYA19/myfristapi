@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "/location")
+@RequestMapping(path = "/Location")
 public class LocationController {
     /*
         @GetMapping
