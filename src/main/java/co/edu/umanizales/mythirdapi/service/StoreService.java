@@ -5,6 +5,11 @@ import co.edu.umanizales.mythirdapi.model.Store;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
@@ -16,25 +21,35 @@ import java.util.List;
 
 
 @Service
-public class StoreService  {
-    public List<Store> getStoresFromCSV(String filepath) throws IOException {
-        List<Store> stores = new ArrayList<>();
-        try (CSVReader csvReader = new CSVReader(new FileReader(filepath))){
-            String[] nextline;
-            while((nextline = csvReader.readNext()) != null) {
+@Getter
+public class StoreService {
+    @Autowired
+    private LocationService locationService;
 
-                String name = nextline[0];
-                String city = nextline[1];
-                String code = nextline[2];
-                String ID = nextline[3];
-                String Adress = nextline[4];
+    @Getter
+    private List<Store> stores;
+
+    @Value("${store_filename}")
+    private String storeFileName;
+
+    @PostConstruct
+    public void readLocationsFromCSV() throws IOException {
+        stores = new ArrayList<>();
+
+        try (CSVReader csvReader = new CSVReader(new FileReader(
+                new ClassPathResource(storeFileName).getFile()))) {
+
+            String[] line;
+            csvReader.skip(1); // Omitir cabecera si aplica
+
+            while ((line = csvReader.readNext()) != null) {
+                // line[0] = código, line[3] = nombre del municipio
+                stores.add(new Store(locationService.getLocationByCode(line[0]), line[1],line[2],line[3],line[4]));
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }catch (CsvValidationException e){
-            throw new RuntimeException(e);
+        } catch (IOException | CsvValidationException e) {
+            throw new RuntimeException("Error leyendo el archivo CSV", e);
         }
-        return stores;
     }
+
 }
