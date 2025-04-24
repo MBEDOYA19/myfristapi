@@ -154,5 +154,14 @@ public class LocationService {
         return null;
     }
 
+    public List<Location> getLocationsByInitialAndLetter(char letterA, char letterB ) {
+        List<Location> initialandendletterArray = new ArrayList<>();
+        for (Location location : locations) {
+            if(location.getDescription().charAt(0)== letterA && location.getDescription().charAt(location.getDescription().length()-1)== letterB){
+                initialandendletterArray.add(location);
+            }
+        }
+        return initialandendletterArray;
+    }
 
 }

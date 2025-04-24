@@ -58,4 +58,8 @@ public class LocationController {
         return locationService.getStates();
     }
 
-}
+    @GetMapping(path = "/initialandendletter/{letterA}/{letterB}")
+    public List<Location> getLocationsByInitialAndEndLetter(@PathVariable char letterA, @PathVariable char letterB){
+        return locationService.getLocationsByInitialAndLetter(letterA, letterB);}
+    }
+
