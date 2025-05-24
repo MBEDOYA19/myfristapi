@@ -1,4 +1,4 @@
-package co.edu.umanizales.myfristapi.model;
+package co.edu.umanizales.mythirdapi.model;
 
 import co.edu.umanizales.mythirdapi.model.ProductSale;
 import co.edu.umanizales.mythirdapi.model.Seller;
