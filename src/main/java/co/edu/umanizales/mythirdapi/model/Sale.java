@@ -1,19 +1,29 @@
-package co.edu.umanizales.mythirdapi.model;
+package co.edu.umanizales.myfristapi.model;
 
+import co.edu.umanizales.mythirdapi.model.ProductSale;
+import co.edu.umanizales.mythirdapi.model.Seller;
+import co.edu.umanizales.mythirdapi.model.Store;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Locale;
 
 @Getter
 @Setter
 @AllArgsConstructor
 
 public class Sale {
-    private String seller;
-    private String name_store;
-    private String date;
-    private String time;
-    private String  city;
-    private String name;
-    private String lastname;
+    private Seller seller;
+    private Store store;
+    private int quantity;
+    private List<ProductSale> products;
+    private LocalDate dateSale;
+    private double totalsale;
+
+
+
+
 }
