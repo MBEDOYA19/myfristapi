@@ -1,6 +1,5 @@
 package co.edu.umanizales.mythirdapi.controller;
 
-
 import co.edu.umanizales.mythirdapi.model.Location;
 import co.edu.umanizales.mythirdapi.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -20,9 +20,10 @@ public class LocationController {
 
     @GetMapping
     public List<Location> getLocations() {
-        return locationService.getLocations();
-    }
 
+        return locationService.getLocations();
+
+    }
     @GetMapping(path = "/{code}")
     public Location getLocationByCode(@PathVariable String code) {
         return locationService.getLocationByCode(code);

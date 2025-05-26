@@ -2,9 +2,7 @@ package co.edu.umanizales.mythirdapi.controller;
 
 
 import co.edu.umanizales.mythirdapi.DTO.ProductDTO;
-import co.edu.umanizales.mythirdapi.DTO.ProductDTO;
 import co.edu.umanizales.mythirdapi.model.*;
-import co.edu.umanizales.mythirdapi.service.LocationService;
 import co.edu.umanizales.mythirdapi.service.ParameterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -64,5 +62,23 @@ public class ParameterController {
             }
         }
         return parameterService.addProducts(products);
+    }
+
+
+    @GetMapping(path = "/product/{code}")
+    public ResponseEntity<?> getProductByCode(@PathVariable String code) {
+        Product product = parameterService.getProductByCode(code);
+        if (product == null) {
+            return ResponseEntity.badRequest()
+                    .body("No se encontró el producto con el código: " + code);
+        }
+        return ResponseEntity.ok(List.of(product));
+    }
+
+
+
+    @GetMapping(path = "typedocument/{id}")
+    public Parameter getTypeDocumentBycode(@PathVariable String code) {
+        return parameterService.getTypeDocumentByCode(code);
     }
 }

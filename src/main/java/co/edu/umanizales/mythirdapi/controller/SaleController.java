@@ -1,15 +1,15 @@
 package co.edu.umanizales.mythirdapi.controller;
 
-import co.edu.umanizales.mythirdapi.model.Store;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/Sale")
+@RequestMapping(path = "/sale")
 public class SaleController {
     @GetMapping
-    public String getSale() {
-        return "ID de la venta";
+    public String getSale(){
+        return "venta";
     }
+
 }

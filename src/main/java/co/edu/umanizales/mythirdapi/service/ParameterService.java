@@ -1,8 +1,6 @@
 package co.edu.umanizales.mythirdapi.service;
 
 import co.edu.umanizales.mythirdapi.model.*;
-import co.edu.umanizales.mythirdapi.model.Parameter;
-import co.edu.umanizales.mythirdapi.model.TypeProduct;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,11 +29,12 @@ public class ParameterService {
 
         parameters.add(new TypeDocument("CC", "Cédula de Ciudadanía"));
         parameters.add(new TypeDocument("NIT", "Número Identificación Tributaria"));
-        parameters.add(new TypeDocument("TI", "Tarjeta de Identidad Identidad"));
 
-        TypeProduct pcs = new TypeProduct("01", "Computadores");
+        TypeProduct pcs = new TypeProduct("01", "Computers");
         parameters.add(pcs);
-        parameters.add(new TypeProduct("02", "Monitores"));
+        parameters.add(new TypeProduct("02", "Monitors"));
+        parameters.add(new TypeProduct("03", "Memoirs"));
+        parameters.add(new TypeProduct("04","Mouses"));
 
 
 
@@ -105,4 +104,14 @@ public class ParameterService {
         }
         return null;
     }
+
+    public TypeDocument getTypeDocumentByCode (String code) {
+        for (Parameter p : parameters) {
+            if (p instanceof TypeDocument && p.getCode().equalsIgnoreCase(code)) {
+                return (TypeDocument) p;
+            }
+        }
+        return null;
+    }
 }
+
