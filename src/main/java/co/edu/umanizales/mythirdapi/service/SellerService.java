@@ -43,7 +43,7 @@ public class SellerService {
             String[] line;
             csvReader.skip(1);
             while ((line = csvReader.readNext()) != null) {
-                sellers.add(new Seller(line[0],ParameterService.getTypeDocumentByCode(line[1]),line[2],line[3],
+                sellers.add(new Seller(line[0],parameterService.getTypeDocumentByCode(line[1]),line[2],line[3],
                         Byte.parseByte(line[4]),locationService.getLocationByCode(line[5])));
 
             }
